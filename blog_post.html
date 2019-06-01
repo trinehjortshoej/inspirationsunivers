@@ -1,0 +1,49 @@
+<{capture name="title"}><{$blog_post->getTitle()}><{/capture}>
+
+<div class="page">
+	<h1 class="blog_h1"><a href="<{$blog_post->getUrl()|escape}>"><{$blog_post->getTitle()|escape}></a></h1>
+	<div><em>af <{$blog_post->getUserName()|escape}> d. <{$blog_post->getCreated()|date_format:"%d-%m-%Y %H:%M"}></em></div>
+
+	<button type="button" name="button">
+<a href="blog.html">Tilbage til inspirationsoversigten</a>
+	</button>
+
+	<{assign var="images" value=$blog_post->getImages()}>
+
+	<{if $images}>
+		<div class="pageimages">
+
+			<{if $images|@count == 1}>
+
+				<{section name="i" loop=$images}>
+					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(300, 300, 'fit')}>" alt="" <{$images[i]->getHtmlSize(300, 300, 'fit')}>/></a>
+				<{/section}>
+
+			<{elseif $images|@count < 3}>
+
+				<{section name="i" loop=$images}>
+					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(150, 150, 'box')}>" alt="" <{$images[i]->getHtmlSize(150, 150, 'box')}>/></a>
+				<{/section}>
+
+			<{elseif $images|@count < 6}>
+
+				<{section name="i" loop=$images}>
+					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(100, 100, 'box')}>" alt="" <{$images[i]->getHtmlSize(100, 100, 'box')}>/></a>
+					<{if $smarty.section.i.index%3 == 2}><br/><{/if}>
+				<{/section}>
+
+			<{else}>
+
+				<{section name="i" loop=$images}>
+					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(50, 50, 'box')}>" alt="" <{$images[i]->getHtmlSize(50, 50, 'box')}>/></a>
+					<{if $smarty.section.i.index%3 == 2}><br/><{/if}>
+				<{/section}>
+
+			<{/if}>
+
+		</div>
+	<{/if}>
+
+	<{$blog_post->getBody()}>
+
+</div>

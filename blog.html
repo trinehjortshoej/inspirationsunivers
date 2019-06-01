@@ -1,0 +1,47 @@
+<{capture name="title"}>inspirationsunivers<{/capture}>
+<{include file="_include_header.html"}>
+
+<{assign var="count" value=0}>
+<{assign var="blog_posts" value=$webshop->getBlogPosts(25, $get.offset, $count)}>
+
+<div id="sitecontent">
+	<div class="container">
+		<div class="blog">
+
+			<div class="row  blogsite">
+				<div class="col-xs-12 col-sm-9">
+				<h1>Inspirationsunivers</h1>
+				<p>Velkommen indenfor i Børn i balances inspirationsunivers. Her vil vi samle en masse gode idéer til aktiviteter for børn, både motoriske og kreative.</p>
+				<p>Har du en baby, tumling eller et skolebarn? Vi skal nok finde på noget sjovt til dig.</p>
+				<p><strong>Lige nu er der <{$count}> gode idéer klar til dig - god leg!</strong></p>
+			</div>
+		</div>
+
+			<div class="row">
+						<{section name="i" loop=$blog_posts}>
+							<div class="col-xs-12 col-sm-3 blog_card">
+								<!-- <img class="" src="<{$blog_posts_images|escape}>" alt=""> -->
+						    <div class="">
+				      		<h3 class=""><{$blog_posts[i]->getTitle()|escape}></h3>
+									<p class=""><em>af <{$blog_posts[i]->getUserName()|escape}> d. <{$blog_posts[i]->getCreated()|date_format:"%d-%m-%Y %H:%M"}></em></p>
+									<p class=""><{$blog_posts[i]->getBody()|strip_tags|truncate:200|escape}></p>
+									<p class><a href="<{$blog_posts[i]->getRemoteUrl()}>">Læs mere</a></p>
+						   </div>
+							</div>
+						<{/section}>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-7">
+				<h2>Aktiviteter for børn</h2>
+				<p>Det kan være svært at opfinde den dybe tallerken hver dag, når man skal finde på aktiviteter at lave med børnene. Derfor har vi samlet vores bedste idéer, skøre påfund og ikke mindst motoriske og kreative forslag til gode aktiviteter med børn.</p>
+				<p>Her på inspirationsuniverset vil der løbende komme flere indlæg til, så du altid kan få flere idéer til lege og kreative sysler, uanset om du har en baby, tumling eller et skolebarn.</p>
+				<h4>God leg!</h4>
+			</div>
+		</div>
+
+</div> <!-- blog end -->
+<{include file="_include_footer.html"}>
+<button id="totop">Til toppen</button>
+ </div> <!-- container end -->
+</div> <!-- sitecontent end -->

@@ -1,0 +1,17 @@
+<{assign var="blog_posts" value=$webshop->getBlogPosts(5, 0)}>
+
+<{if $blog_posts}>
+
+	<h3 style="margin:15px 0px 0px 12px;">Seneste blogindlæg</h3>
+
+	<dl>
+		<{section name="i" loop=$blog_posts}>
+			<dd>
+				» <a href="<{$blog_posts[i]->getRemoteUrl()|escape}>"><{$blog_posts[i]->getTitle()|truncate:25|escape}></a>
+			</dd>
+		<{/section}>
+	</dl>
+
+	<p style="margin:10px 0px 0px 12px;"><a href="<{$webshop->getUrl()}>/inspirationsunivers">Se alle blogindlæg</a></p>
+
+<{/if}>
