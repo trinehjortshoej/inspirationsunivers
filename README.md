@@ -1,2 +1,2 @@
 # inspirationsunivers
-Eksamensopgave
+Eksamensopgave, 4 semester, multimediedesign.
