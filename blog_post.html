@@ -1,49 +1,83 @@
+<{strip}>
 <{capture name="title"}><{$blog_post->getTitle()}><{/capture}>
+<{include file="_include_header.html"}>
+<div id="sitecontent" class="staticpage">
+    <section id="page-content">
+        <{include file="_include_breadcrumbs.html"}>
 
-<div class="page">
-	<h1 class="blog_h1"><a href="<{$blog_post->getUrl()|escape}>"><{$blog_post->getTitle()|escape}></a></h1>
-	<div><em>af <{$blog_post->getUserName()|escape}> d. <{$blog_post->getCreated()|date_format:"%d-%m-%Y %H:%M"}></em></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    <h1><{$blog_post->getTitle()|escape}></h1>
+					<div><em>af <{$blog_post->getUserName()|escape}> d. <{$blog_post->getCreated()|date_format:"%d-%m-%Y %H:%M"}></em></div>
+                    <{assign var="images" value=$blog_post->getImages()}>
+                    <{if $images}>
+                        <div class="pageimages row">
 
-	<button type="button" name="button">
-<a href="blog.html">Tilbage til inspirationsoversigten</a>
-	</button>
+                            <{if $images|@count == 1}>
 
-	<{assign var="images" value=$blog_post->getImages()}>
+                                <{section name="i" loop=$images}>
+                                    <div class="col-xs-6 col-sm-3">
+	                                    <img class="img-responsive" src="<{$images[i]->getSrc(400, 400, 'fit')}>" alt="$images[i]->getDescription()|escape" />
+	                                </div>
+                                <{/section}>
 
-	<{if $images}>
-		<div class="pageimages">
+                            <{elseif $images|@count <= 3 }>
 
-			<{if $images|@count == 1}>
+                                <{section name="i" loop=$images}>
+                                    <div class="col-xs-6 col-sm-4">
+                                   		<img class="img-responsive" src="<{$images[i]->getSrc(400, 400, 'fit')}>" alt="$images[i]->getDescription()|escape" />
+                                	</div>
+                                <{/section}>
 
-				<{section name="i" loop=$images}>
-					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(300, 300, 'fit')}>" alt="" <{$images[i]->getHtmlSize(300, 300, 'fit')}>/></a>
-				<{/section}>
+                            <{elseif $images|@count < 6}>
 
-			<{elseif $images|@count < 3}>
+                                <{section name="i" loop=$images}>
+	                               	<div class="col-xs-6 col-sm-3">
+	                                    <img class="img-responsive" src="<{$images[i]->getSrc(400, 400, 'fit')}>" alt="$images[i]->getDescription()|escape" />
+	                                </div>
+                                <{/section}>
 
-				<{section name="i" loop=$images}>
-					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(150, 150, 'box')}>" alt="" <{$images[i]->getHtmlSize(150, 150, 'box')}>/></a>
-				<{/section}>
+                            <{else}>
 
-			<{elseif $images|@count < 6}>
+                                <{section name="i" loop=$images}>
+                                    <div class="col-xs-6 col-sm-2">
+	                                    <img class="img-responsive" src="<{$images[i]->getSrc(400, 400, 'fit')}>" alt="$images[i]->getDescription()|escape" />
+	                                </div>
+                                <{/section}>
 
-				<{section name="i" loop=$images}>
-					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(100, 100, 'box')}>" alt="" <{$images[i]->getHtmlSize(100, 100, 'box')}>/></a>
-					<{if $smarty.section.i.index%3 == 2}><br/><{/if}>
-				<{/section}>
+                            <{/if}>
 
-			<{else}>
+                        </div>
+                    <{/if}>
 
-				<{section name="i" loop=$images}>
-					<a href="<{$images[i]->getSrc(800, 800, 'fit')}>" rel="lightbox"><img src="<{$images[i]->getSrc(50, 50, 'box')}>" alt="" <{$images[i]->getHtmlSize(50, 50, 'box')}>/></a>
-					<{if $smarty.section.i.index%3 == 2}><br/><{/if}>
-				<{/section}>
+                    <{$blog_post->getBody()}>
 
-			<{/if}>
 
-		</div>
-	<{/if}>
+                </div>
+            </div>
+        </div><!--/.row /.container-->
+    </section>
 
-	<{$blog_post->getBody()}>
+    <{if $current_url eq 'https://www.boernibalance.dk/om'}>
+    	<div class="container">
+	        <div class="row">
+	            <div class="col-xs-12">
+	                <!-- TrustBox widget - Slider -->
+	                <div class="trustpilot-widget" data-locale="da-DK" data-template-id="54ad5defc6454f065c28af8b" data-businessunit-id="46a16e090000640005008cb1" data-style-height="220px" data-style-width="100%" data-theme="light" data-stars="4,5">
+	                    <a href="https://dk.trustpilot.com/review/www.boernibalance.dk" target="_blank">Trustpilot</a>
+	                </div> <!-- End TrustBox widget -->
+	            </div>
+	        </div>
+	    </div>
+    <{/if}>
 
-</div>
+    <{include file="_include_footer.html"}>
+
+    <button id="totop">Til toppen</button>
+    <{include file="_include_cookiepolicy.html"}>
+
+</div><!--/#site-->
+
+<{include file="_include_side-basket.html"}>
+<{/strip}>
